@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { BarChart3, Bot, History, Home, Shield, TrendingUp, ChevronLeft, Menu } from "lucide-react"
+import { BarChart3, Bot, History, Home, Shield, TrendingUp, ChevronLeft, Menu, Brain, Database, Zap } from "lucide-react"
 
 interface SidebarProps {
   activeTab: string
@@ -15,6 +15,9 @@ export function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 
   const menuItems = [
     { id: "overview", label: "Overview", icon: Home },
+    { id: "og-defi", label: "0G DeFi", icon: Zap },
+    { id: "ai-strategy", label: "AI Strategy", icon: Brain },
+    { id: "data-storage", label: "Data Storage", icon: Database },
     { id: "trading", label: "Trading", icon: TrendingUp },
     { id: "analytics", label: "Analytics", icon: BarChart3 },
     { id: "risk", label: "Risk Management", icon: Shield },
@@ -25,7 +28,8 @@ export function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
   return (
     <aside
       className={cn(
-        "border-r border-border bg-card/30 backdrop-blur-sm transition-all duration-300 ease-in-out",
+        "border-r border-border bg-card/30 backdrop-blur-sm transition-all duration-300 ease-in-out flex flex-col",
+        "min-h-full h-full sticky top-0",
         isCollapsed ? "w-16" : "w-64",
       )}
     >
@@ -43,7 +47,7 @@ export function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
       </div>
 
       {/* Navigation */}
-      <nav className="p-4 space-y-2">
+      <nav className="flex-1 p-4 space-y-2">
         {menuItems.map((item) => {
           const Icon = item.icon
           return (
@@ -53,7 +57,7 @@ export function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
               className={cn(
                 "w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors relative group",
                 activeTab === item.id
-                  ? "bg-primary text-primary-foreground"
+                  ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground hover:bg-accent",
                 isCollapsed && "justify-center",
               )}
@@ -75,11 +79,11 @@ export function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 
       {/* Footer section when expanded */}
       {!isCollapsed && (
-        <div className="absolute bottom-4 left-4 right-4">
+        <div className="p-4 mt-auto">
           <div className="p-3 rounded-lg bg-muted/50 border border-border">
-            <div className="text-xs text-muted-foreground mb-1">Quick Stats</div>
-            <div className="text-sm font-medium text-foreground">Portfolio: $127.5K</div>
-            <div className="text-xs text-green-500">+12.4% today</div>
+            <div className="text-xs text-muted-foreground mb-1">0G Chain Stats</div>
+            <div className="text-sm font-medium text-foreground">Contract: Active</div>
+            <div className="text-xs text-blue-500">Chain ID: 16601</div>
           </div>
         </div>
       )}

@@ -1,0 +1,1 @@
+export { DataStorageManager } from './data-storage-manager';
