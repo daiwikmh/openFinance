@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { BarChart3, Bot, History, Home, Shield, TrendingUp, ChevronLeft, Menu, Brain } from "lucide-react"
+import { BarChart3, Bot, History, Home, Shield, TrendingUp, ChevronLeft, Menu, Brain, MessageSquare } from "lucide-react"
 
 interface SidebarProps {
   activeTab: string
@@ -20,6 +20,7 @@ export function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
     { id: "risk", label: "Risk Management", icon: Shield },
     { id: "bots", label: "Trading Bots", icon: Bot },
     { id: "ai-leverage", label: "AI Leverage Monitor", icon: Brain },
+    { id: "ai-chat", label: "AI Chat", icon: MessageSquare },
     { id: "history", label: "History", icon: History },
   ]
 

@@ -36,33 +36,33 @@ const BentoCard = ({ title, description, Component }) => (
 export function BentoSection() {
   const cards = [
     {
-      title: "AI Risk Assessment",
-      description: "Real-time portfolio risk analysis and position optimization.",
+      title: "Adaptive AI Strategies",
+      description: "Algorithms that adapt to changing market volatility and gas costs for optimal yield.",
       Component: AiCodeReviews,
     },
     {
-      title: "Live Market Analytics",
-      description: "Real-time DeFi market data and trading opportunities.",
+      title: "Dynamic Rebalancing",
+      description: "Real-time automatic fund allocation optimization across protocols.",
       Component: RealtimeCodingPreviews,
     },
     {
-      title: "Protocol Integrations",
-      description: "Connect with major DeFi protocols and lending platforms.",
+      title: "Multi-Protocol Support",
+      description: "Lending protocols, LP farming, and staking pools in one platform.",
       Component: OneClickIntegrationsIllustration,
     },
     {
-      title: "Cross-Chain Connectivity",
-      description: "Trade across multiple blockchains seamlessly.",
+      title: "0G Network Integration",
+      description: "Powered by 0G Compute, Chain, and Storage for maximum efficiency.",
       Component: MCPConnectivityIllustration,
     },
     {
-      title: "Automated Trading Bots",
-      description: "Deploy multiple AI trading strategies simultaneously.",
+      title: "High-Frequency Decisions",
+      description: "AI models running inference every block for optimal positioning.",
       Component: ParallelCodingAgents,
     },
     {
-      title: "Instant Execution",
-      description: "Execute trades with minimal slippage and optimal timing.",
+      title: "Complete Transparency",
+      description: "All strategies and results stored on-chain for historical analysis.",
       Component: EasyDeployment,
     },
   ]
@@ -74,11 +74,10 @@ export function BentoSection() {
         <div className="self-stretch py-8 md:py-14 flex flex-col justify-center items-center gap-2 z-10">
           <div className="flex flex-col justify-start items-center gap-4">
             <h2 className="w-full max-w-[655px] text-center text-foreground text-4xl md:text-6xl font-semibold leading-tight md:leading-[66px]">
-              Advanced DeFi Trading Intelligence
+              Yield Optimizer with Adaptive AI
             </h2>
             <p className="w-full max-w-[600px] text-center text-muted-foreground text-lg md:text-xl font-medium leading-relaxed">
-              Leverage AI-powered analytics, automated strategies, and real-time market insights to optimize your DeFi
-              trading performance.
+              Dynamically shift funds between lending protocols, LP farming, and staking pools using AI that adapts to market conditions on the 0G Network.
             </p>
           </div>
         </div>

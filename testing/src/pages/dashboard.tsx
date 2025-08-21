@@ -6,6 +6,7 @@ import { RiskManagement } from '../components/dashboard/risk-management';
 import { TradingBots } from '../components/dashboard/trading-bots';
 import { TradingInterface } from '../components/dashboard/trading-interface';
 import { TransactionHistory } from '../components/dashboard/transaction-history';
+import { ModelFetcher } from '../components/ai-compute';
 
 const Dashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState("overview");
@@ -57,18 +58,24 @@ const Dashboard: React.FC = () => {
             <TradingBots />
           </DashboardPage>
         );
-      // case "ai-leverage":
-      //   return (
-      //     <DashboardPage 
-      //       title="AI Leverage Monitor" 
-      //       description="AI-powered leverage monitoring and risk management"
-      //     >
-      //       <div className="space-y-8">
-      //         <LeverageDashboard />
-      //         <AIMarketAnalyzer />
-      //       </div>
-      //     </DashboardPage>
-      //   );
+      case "ai-leverage":
+        return (
+          <DashboardPage 
+            title="AI Leverage Monitor" 
+            description="AI-powered leverage monitoring and risk management with 0G Network logs"
+          >
+            <ModelFetcher />
+          </DashboardPage>
+        );
+      case "ai-models":
+        return (
+          <DashboardPage 
+            title="AI Models" 
+            description="Discover and use AI models on the 0G Compute Network"
+          >
+            <ModelFetcher />
+          </DashboardPage>
+        );
       case "history":
         return (
           <DashboardPage 

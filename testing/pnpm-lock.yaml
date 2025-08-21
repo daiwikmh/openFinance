@@ -80,6 +80,9 @@ importers:
       axios:
         specifier: ^1.9.0
         version: 1.11.0
+      buffer:
+        specifier: ^6.0.3
+        version: 6.0.3
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -104,6 +107,9 @@ importers:
       lucide-react:
         specifier: ^0.485.0
         version: 0.485.0(react@19.1.0)
+      process:
+        specifier: ^0.11.10
+        version: 0.11.10
       react:
         specifier: ^19.1.0
         version: 19.1.0
@@ -1975,11 +1981,11 @@ packages:
   '@types/node-fetch@2.6.13':
     resolution: {integrity: sha512-QGpRVpzSaUs30JBSGPjOg4Uveu384erbHBoT1zeONvyCfwQxIkUshLAOqN/k9EjGviPRmWTTe6aH2qySWKTVSw==}
 
-  '@types/node@18.19.122':
-    resolution: {integrity: sha512-yzegtT82dwTNEe/9y+CM8cgb42WrUfMMCg2QqSddzO1J6uPmBD7qKCZ7dOHZP2Yrpm/kb0eqdNMn2MUyEiqBmA==}
+  '@types/node@18.19.123':
+    resolution: {integrity: sha512-K7DIaHnh0mzVxreCR9qwgNxp3MH9dltPNIEddW9MYUlcKAzm+3grKNSTe2vCJHI1FaLpvpL5JGJrz1UZDKYvDg==}
 
-  '@types/node@20.19.10':
-    resolution: {integrity: sha512-iAFpG6DokED3roLSP0K+ybeDdIX6Bc0Vd3mLW5uDqThPWtNos3E+EqOM11mPQHKzfWHqEBuLjIlsBQQ8CsISmQ==}
+  '@types/node@20.19.11':
+    resolution: {integrity: sha512-uug3FEEGv0r+jrecvUUpbY8lLisvIjg6AAic6a2bSP5OEOLeJsDSnvhCDov7ipFFMXS3orMpzlmi0ZcuGkBbow==}
 
   '@types/node@22.16.5':
     resolution: {integrity: sha512-bJFoMATwIGaxxx8VJPeM8TonI8t579oRvgAuT8zFugJsJZgzqv0Fu8Mhp68iecjzG7cnN3mO2dJQ5uUM2EFrgQ==}
@@ -2649,8 +2655,8 @@ packages:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
 
-  chalk@5.5.0:
-    resolution: {integrity: sha512-1tm8DTaJhPBG3bIkVeZt1iZM9GfSX2lzOeDVZH9R9ffRHpmHvxZ/QhgQH/aDTkswQVt+YHdXAdS/In/30OjCbg==}
+  chalk@5.6.0:
+    resolution: {integrity: sha512-46QrSQFyVSEyYAgQ22hQ+zDa60YHA4fBstHmtSApj1Y5vKtG27fWowW03jCk5KcbXEWPZUIR894aARCA/G1kfQ==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
 
   char-regex@1.0.2:
@@ -4583,6 +4589,10 @@ packages:
   process-warning@1.0.0:
     resolution: {integrity: sha512-du4wfLyj4yCZq1VupnVSZmRsPJsNuxoDQFdCFHLaYiEbFBD7QE0a+I4D7hOxrVnh78QE/YipFAj9lXHiXocV+Q==}
 
+  process@0.11.10:
+    resolution: {integrity: sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==}
+    engines: {node: '>= 0.6.0'}
+
   property-information@7.1.0:
     resolution: {integrity: sha512-TwEZ+X+yCJmYfL7TPUOcvBZ4QfoT5YenQiJuX//0th53DE6w0xxLEtfK3iyryQFddXuvkIk51EEgrJQ0WJkOmQ==}
 
@@ -5717,13 +5727,13 @@ snapshots:
       '@types/crypto-js': 4.2.2
       '@types/express': 5.0.3
       '@types/jest': 29.5.14
-      '@types/node': 20.19.10
+      '@types/node': 20.19.11
       '@types/node-fetch': 2.6.13
       adm-zip: 0.5.16
       axios: 1.11.0
       brotli: 1.3.3
       buffer: 6.0.3
-      chalk: 5.5.0
+      chalk: 5.6.0
       circomlibjs: 0.1.7(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       cli-table3: 0.6.5
       commander: 13.1.0
@@ -8144,11 +8154,11 @@ snapshots:
       '@types/node': 22.16.5
       form-data: 4.0.4
 
-  '@types/node@18.19.122':
+  '@types/node@18.19.123':
     dependencies:
       undici-types: 5.26.5
 
-  '@types/node@20.19.10':
+  '@types/node@20.19.11':
     dependencies:
       undici-types: 6.21.0
 
@@ -9339,7 +9349,7 @@ snapshots:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
 
-  chalk@5.5.0: {}
+  chalk@5.6.0: {}
 
   char-regex@1.0.2: {}
 
@@ -11558,7 +11568,7 @@ snapshots:
 
   openai@4.104.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)):
     dependencies:
-      '@types/node': 18.19.122
+      '@types/node': 18.19.123
       '@types/node-fetch': 2.6.13
       abort-controller: 3.0.0
       agentkeepalive: 4.6.0
@@ -11776,6 +11786,8 @@ snapshots:
   process-nextick-args@2.0.1: {}
 
   process-warning@1.0.0: {}
+
+  process@0.11.10: {}
 
   property-information@7.1.0: {}
 

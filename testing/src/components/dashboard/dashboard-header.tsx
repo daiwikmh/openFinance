@@ -21,7 +21,7 @@ export function DashboardHeader() {
     <header className="border-b border-border bg-card/50 backdrop-blur-sm">
       <div className="flex h-16 items-center justify-between px-6">
         <div className="flex items-center gap-6">
-          <h1 className="text-xl font-semibold text-foreground">DeFiAI</h1>
+          <h1 className="text-xl font-semibold text-foreground">OG-Finance</h1>
           <ConnectButton />
         </div>
 
