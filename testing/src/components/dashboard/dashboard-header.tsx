@@ -1,19 +1,28 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Bell, Settings, User, Wallet } from "lucide-react"
+import { Bell, Settings, User } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { useAccount, useDisconnect } from "wagmi"
+import { useNavigate } from "react-router"
+import { ConnectButton } from "@/components/ui/connect-button"
 
 export function DashboardHeader() {
+  const { address, isConnected } = useAccount()
+  const { disconnect } = useDisconnect()
+  const navigate = useNavigate()
+
+  const handleDisconnect = () => {
+    disconnect()
+    navigate("/")
+  }
+
   return (
     <header className="border-b border-border bg-card/50 backdrop-blur-sm">
       <div className="flex h-16 items-center justify-between px-6">
         <div className="flex items-center gap-6">
           <h1 className="text-xl font-semibold text-foreground">DeFiAI</h1>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Wallet className="h-4 w-4" />
-            <span>Connected: 0x1234...5678</span>
-          </div>
+          <ConnectButton />
         </div>
 
         <div className="flex items-center gap-4">
@@ -40,7 +49,11 @@ export function DashboardHeader() {
             <DropdownMenuContent align="end">
               <DropdownMenuItem>Profile</DropdownMenuItem>
               <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Disconnect Wallet</DropdownMenuItem>
+              {isConnected && (
+                <DropdownMenuItem onClick={handleDisconnect}>
+                  Disconnect Wallet
+                </DropdownMenuItem>
+              )}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

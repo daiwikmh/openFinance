@@ -1,0 +1,232 @@
+import { WebSocketServer } from 'ws';
+import cron from 'node-cron';
+import { sendAIRequest } from './brokerService';
+
+interface Position {
+  id: string;
+  userAddress: string;
+  asset: string;
+  collateral: number;
+  borrowed: number;
+  leverage: number;
+  currentPrice: number;
+  liquidationPrice: number;
+  healthFactor: number;
+  timestamp: number;
+}
+
+interface RiskAlert {
+  id: string;
+  positionId: string;
+  type: 'warning' | 'critical' | 'liquidation';
+  message: string;
+  timestamp: number;
+  aiAnalysis?: string;
+}
+
+// Mock positions data - in production, this would come from blockchain/database
+let mockPositions: Position[] = [
+  {
+    id: 'pos_1',
+    userAddress: '0x1234...5678',
+    asset: 'ETH',
+    collateral: 10000,
+    borrowed: 75000,
+    leverage: 8.5,
+    currentPrice: 3500,
+    liquidationPrice: 3200,
+    healthFactor: 1.15,
+    timestamp: Date.now()
+  },
+  {
+    id: 'pos_2', 
+    userAddress: '0x9876...5432',
+    asset: 'BTC',
+    collateral: 50000,
+    borrowed: 200000,
+    leverage: 4.2,
+    currentPrice: 95000,
+    liquidationPrice: 88000,
+    healthFactor: 1.08,
+    timestamp: Date.now()
+  }
+];
+
+let wss: WebSocketServer | null = null;
+const riskAlerts: RiskAlert[] = [];
+
+export function startRiskMonitoring(websocketServer: WebSocketServer) {
+  wss = websocketServer;
+  console.log('🤖 Starting AI-powered risk monitoring...');
+  
+  // Schedule risk monitoring every 30 seconds
+  cron.schedule('*/30 * * * * *', async () => {
+    try {
+      await performRiskAnalysis();
+    } catch (error) {
+      console.error('Risk monitoring error:', error);
+    }
+  });
+  
+  console.log('✅ Risk monitoring service started');
+}
+
+async function performRiskAnalysis() {
+  console.log('🔍 Performing AI risk analysis...');
+  
+  for (const position of mockPositions) {
+    try {
+      // Update position with mock price movements
+      updatePositionPrices(position);
+      
+      // Calculate risk metrics
+      const riskLevel = calculateRiskLevel(position);
+      
+      // Generate AI analysis for high-risk positions
+      if (riskLevel >= 0.7) {
+        const aiAnalysis = await generateAIRiskAnalysis(position);
+        
+        const alert: RiskAlert = {
+          id: `alert_${Date.now()}_${position.id}`,
+          positionId: position.id,
+          type: riskLevel >= 0.9 ? 'critical' : 'warning',
+          message: generateRiskMessage(position, riskLevel),
+          timestamp: Date.now(),
+          aiAnalysis
+        };
+        
+        riskAlerts.push(alert);
+        broadcastAlert(alert);
+        
+        // Auto-adjust leverage if critical
+        if (riskLevel >= 0.9) {
+          await autoAdjustLeverage(position);
+        }
+      }
+    } catch (error) {
+      console.error(`Error analyzing position ${position.id}:`, error);
+    }
+  }
+}
+
+function updatePositionPrices(position: Position) {
+  // Simulate price movements (±2% random change)
+  const priceChange = (Math.random() - 0.5) * 0.04;
+  position.currentPrice = position.currentPrice * (1 + priceChange);
+  
+  // Recalculate health factor
+  const collateralValue = position.collateral * position.currentPrice;
+  position.healthFactor = collateralValue / position.borrowed;
+  
+  position.timestamp = Date.now();
+}
+
+function calculateRiskLevel(position: Position): number {
+  // Risk level calculation based on multiple factors
+  const healthFactorRisk = Math.max(0, (1.5 - position.healthFactor) / 1.5);
+  const leverageRisk = Math.min(1, position.leverage / 10);
+  const liquidationDistanceRisk = Math.max(0, 1 - (position.currentPrice - position.liquidationPrice) / position.currentPrice);
+  
+  return Math.min(1, (healthFactorRisk * 0.5 + leverageRisk * 0.3 + liquidationDistanceRisk * 0.2));
+}
+
+async function generateAIRiskAnalysis(position: Position): Promise<string> {
+  try {
+    const prompt = `Analyze this DeFi leverage position and provide risk assessment:
+    
+    Asset: ${position.asset}
+    Current Price: $${position.currentPrice.toFixed(2)}
+    Liquidation Price: $${position.liquidationPrice.toFixed(2)}
+    Leverage: ${position.leverage}x
+    Health Factor: ${position.healthFactor.toFixed(3)}
+    Collateral: $${position.collateral.toLocaleString()}
+    Borrowed: $${position.borrowed.toLocaleString()}
+    
+    Provide:
+    1. Risk level assessment (Low/Medium/High/Critical)
+    2. Specific risks identified
+    3. Recommended actions
+    4. Market outlook impact
+    
+    Keep response concise (max 200 words).`;
+    
+    // Use the official 0G AI service for risk analysis
+    const officialProvider = '0xf07240Efa67755B5311bc75784a061eDB47165Dd'; // llama-3.3-70b-instruct
+    const result = await sendAIRequest(officialProvider, prompt);
+    
+    return result.answer;
+  } catch (error) {
+    console.error('AI risk analysis failed:', error);
+    return 'AI analysis temporarily unavailable. Manual review recommended.';
+  }
+}
+
+function generateRiskMessage(position: Position, riskLevel: number): string {
+  if (riskLevel >= 0.9) {
+    return `🚨 CRITICAL: Position ${position.id} (${position.asset}) at ${(riskLevel * 100).toFixed(1)}% risk. Liquidation imminent!`;
+  } else if (riskLevel >= 0.7) {
+    return `⚠️ WARNING: Position ${position.id} (${position.asset}) at ${(riskLevel * 100).toFixed(1)}% risk. Consider reducing leverage.`;
+  }
+  return `ℹ️ Position ${position.id} risk level: ${(riskLevel * 100).toFixed(1)}%`;
+}
+
+async function autoAdjustLeverage(position: Position) {
+  try {
+    console.log(`🤖 Auto-adjusting leverage for position ${position.id}`);
+    
+    // Simulate leverage reduction
+    const targetLeverage = Math.max(2, position.leverage * 0.7);
+    const adjustmentAmount = position.borrowed * (1 - targetLeverage / position.leverage);
+    
+    // In production, this would call smart contracts
+    console.log(`Reducing leverage from ${position.leverage}x to ${targetLeverage.toFixed(1)}x`);
+    console.log(`Repaying ${adjustmentAmount.toLocaleString()} of borrowed amount`);
+    
+    position.leverage = targetLeverage;
+    position.borrowed -= adjustmentAmount;
+    position.healthFactor = (position.collateral * position.currentPrice) / position.borrowed;
+    
+    const adjustmentAlert: RiskAlert = {
+      id: `auto_adjust_${Date.now()}_${position.id}`,
+      positionId: position.id,
+      type: 'warning',
+      message: `🤖 Auto-adjusted: Reduced leverage to ${targetLeverage.toFixed(1)}x to prevent liquidation`,
+      timestamp: Date.now()
+    };
+    
+    riskAlerts.push(adjustmentAlert);
+    broadcastAlert(adjustmentAlert);
+    
+  } catch (error) {
+    console.error('Auto leverage adjustment failed:', error);
+  }
+}
+
+function broadcastAlert(alert: RiskAlert) {
+  if (!wss) return;
+  
+  const message = JSON.stringify({
+    type: 'risk_alert',
+    data: alert
+  });
+  
+  wss.clients.forEach(client => {
+    if (client.readyState === 1) { // WebSocket.OPEN
+      client.send(message);
+    }
+  });
+  
+  console.log(`📢 Broadcasting ${alert.type} alert: ${alert.message}`);
+}
+
+export function getPositions(): Position[] {
+  return mockPositions;
+}
+
+export function getRiskAlerts(limit: number = 50): RiskAlert[] {
+  return riskAlerts.slice(-limit).reverse();
+}
+
+export function getPositionById(id: string): Position | undefined {
+  return mockPositions.find(pos => pos.id === id);
+}

@@ -1,9 +1,20 @@
-import React from "react"
-import { Button } from "@/components/ui/button"
+import React, { useEffect } from "react"
 import { Header } from "./header"
-import { Link } from "react-router"
+import { useAccount } from "wagmi"
+import { useNavigate } from "react-router"
+import { ConnectButton } from "@/components/ui/connect-button"
 
 export function HeroSection() {
+  const { isConnected } = useAccount()
+  const navigate = useNavigate()
+
+  // Redirect to dashboard when wallet is connected
+  useEffect(() => {
+    if (isConnected) {
+      navigate("/dashboard")
+    }
+  }, [isConnected, navigate])
+
   return (
     <section
       className="flex flex-col items-center text-center relative mx-auto overflow-hidden py-0 px-4
@@ -446,11 +457,9 @@ export function HeroSection() {
         </p>
       </div>
 
-      <Link to="/dashboard">
-        <Button className="relative z-10 bg-secondary text-secondary-foreground hover:bg-secondary/90 px-8 py-3 rounded-full font-medium text-base shadow-lg ring-1 ring-white/10">
-          Get Started
-        </Button>
-      </Link>
+      <div className="relative z-10">
+        <ConnectButton />
+      </div>
     </section>
   )
 }

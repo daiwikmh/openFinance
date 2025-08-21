@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { BarChart3, Bot, History, Home, Shield, TrendingUp, ChevronLeft, Menu, Brain, Database, Zap } from "lucide-react"
+import { BarChart3, Bot, History, Home, Shield, TrendingUp, ChevronLeft, Menu, Brain } from "lucide-react"
 
 interface SidebarProps {
   activeTab: string
@@ -15,13 +15,11 @@ export function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 
   const menuItems = [
     { id: "overview", label: "Overview", icon: Home },
-    { id: "og-defi", label: "0G DeFi", icon: Zap },
-    { id: "ai-strategy", label: "AI Strategy", icon: Brain },
-    { id: "data-storage", label: "Data Storage", icon: Database },
     { id: "trading", label: "Trading", icon: TrendingUp },
     { id: "analytics", label: "Analytics", icon: BarChart3 },
     { id: "risk", label: "Risk Management", icon: Shield },
     { id: "bots", label: "Trading Bots", icon: Bot },
+    { id: "ai-leverage", label: "AI Leverage Monitor", icon: Brain },
     { id: "history", label: "History", icon: History },
   ]
 
@@ -81,9 +79,9 @@ export function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
       {!isCollapsed && (
         <div className="p-4 mt-auto">
           <div className="p-3 rounded-lg bg-muted/50 border border-border">
-            <div className="text-xs text-muted-foreground mb-1">0G Chain Stats</div>
-            <div className="text-sm font-medium text-foreground">Contract: Active</div>
-            <div className="text-xs text-blue-500">Chain ID: 16601</div>
+            <div className="text-xs text-muted-foreground mb-1">Trading Platform</div>
+            <div className="text-sm font-medium text-foreground">Status: Active</div>
+            <div className="text-xs text-blue-500">Version: 1.0.0</div>
           </div>
         </div>
       )}

@@ -6,9 +6,6 @@ import { RiskManagement } from '../components/dashboard/risk-management';
 import { TradingBots } from '../components/dashboard/trading-bots';
 import { TradingInterface } from '../components/dashboard/trading-interface';
 import { TransactionHistory } from '../components/dashboard/transaction-history';
-import { AIStrategyEngine } from '../components/og-compute/ai-strategy-engine';
-import { DataStorageManager } from '../components/og-storage/data-storage-manager';
-import { OGDeFiDashboard } from '../components/og-dashboard/og-defi-dashboard';
 
 const Dashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState("overview");
@@ -22,33 +19,6 @@ const Dashboard: React.FC = () => {
             description="Monitor your assets and performance"
           >
             <PortfolioOverview />
-          </DashboardPage>
-        );
-      case "og-defi":
-        return (
-          <DashboardPage 
-            title="0G DeFi Platform" 
-            description="AI-powered DeFi strategy management on 0G Chain"
-          >
-            <OGDeFiDashboard />
-          </DashboardPage>
-        );
-      case "ai-strategy":
-        return (
-          <DashboardPage 
-            title="AI Strategy Engine" 
-            description="Generate and execute AI-powered DeFi strategies"
-          >
-            <AIStrategyEngine />
-          </DashboardPage>
-        );
-      case "data-storage":
-        return (
-          <DashboardPage 
-            title="Data & Storage Management" 
-            description="Historical data and model storage using 0G Storage"
-          >
-            <DataStorageManager />
           </DashboardPage>
         );
       case "trading":
@@ -87,6 +57,18 @@ const Dashboard: React.FC = () => {
             <TradingBots />
           </DashboardPage>
         );
+      // case "ai-leverage":
+      //   return (
+      //     <DashboardPage 
+      //       title="AI Leverage Monitor" 
+      //       description="AI-powered leverage monitoring and risk management"
+      //     >
+      //       <div className="space-y-8">
+      //         <LeverageDashboard />
+      //         <AIMarketAnalyzer />
+      //       </div>
+      //     </DashboardPage>
+      //   );
       case "history":
         return (
           <DashboardPage 

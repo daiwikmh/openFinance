@@ -1,0 +1,41 @@
+{
+  "name": "defi-ai-backend",
+  "version": "1.0.0",
+  "description": "Backend API for AI-powered DeFi trading platform with 0G Compute Network integration",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "lint": "eslint src/**/*.ts",
+    "test": "jest"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "dotenv": "^16.3.1",
+    "ethers": "^6.8.0",
+    "@0glabs/0g-serving-broker": "latest",
+    "@types/crypto-js": "4.2.2",
+    "crypto-js": "4.2.0",
+    "ws": "^8.14.2",
+    "node-cron": "^3.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.7",
+    "@types/express": "^4.17.20",
+    "@types/cors": "^2.8.15",
+    "@types/ws": "^8.5.8",
+    "@types/node-cron": "^3.0.11",
+    "typescript": "^5.2.2",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "eslint": "^8.52.0",
+    "@typescript-eslint/parser": "^6.9.0",
+    "@typescript-eslint/eslint-plugin": "^6.9.0"
+  },
+  "keywords": ["defi", "ai", "trading", "leverage", "0g-network"],
+  "author": "DeFiAI Team",
+  "license": "MIT"
+}

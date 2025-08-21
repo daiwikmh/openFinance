@@ -8,9 +8,9 @@ import AnalyticsPage from './pages/analytics-page';
 import RiskPage from './pages/risk-page';
 import BotsPage from './pages/bots-page';
 import HistoryPage from './pages/history-page';
-import OGDeFiDemo from './pages/og-defi-demo';
 
 const App: React.FC = () => {
+    console.log("🎯 App component rendering");
     return (
         <Router>
             <Routes>
@@ -22,7 +22,6 @@ const App: React.FC = () => {
                 <Route path="/risk" element={<RiskPage />} />
                 <Route path="/bots" element={<BotsPage />} />
                 <Route path="/history" element={<HistoryPage />} />
-                <Route path="/og-defi" element={<OGDeFiDemo />} />
             </Routes>
         </Router>
     );
